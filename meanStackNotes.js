@@ -84,10 +84,9 @@ console.log(2);
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
-//with npm it can distinguish dependancies that you use for development and for production
-//testing frameworks or task runners in development
-//npm install packagename --save-dev
-//it will save as dev dependancies under the node modules folder and in the package.json
+//with npm it can distinguish dependancies that you use for development and for production : testing frameworks or task runners in development
+
+//npm install packagename --save-dev it will save as dev dependancies under the node modules folder and in the package.json
 
 //if you didnt have the node modules folder and wanted to install the dependancies listed in the package.json you could just do npm install
 
@@ -96,4 +95,9 @@ console.log(2);
 //to not get the warnings when you use npm you should create a readme.md file and have some text in there
 
 //let npm manage your packages when moving between environments like windows to unix so dont upload your node modules folder and let them install their own dependancies
-//so create a .gitignore and add node_modules into the file
+
+//so create a .gitignore in the root of the project and add node_modules into the file
+
+//you can run scripts in npm if you add in the scripts section of the package.json 
+
+//a common script is the start script : "start": "node nameOfJsFile.js" so now you have another way of running the app. now you can use node nameOfJsFile.js or npm start :::: but running it with npm start will also give you additional information like the name of the app + version number location + name of script + the contents of the scripts that are run
