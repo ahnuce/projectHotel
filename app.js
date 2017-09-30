@@ -1,17 +1,5 @@
-require('./instantHello');
-var goodbye = require('./talk/goodbye');
-//if you have an index.js within a folder you dont have specify the name of the file itself you just need the name of the parent folder
-var talk = require('./talk');
-var question = require('./talk/question');
+var express = require('express');
+var app = express();
 
-talk.intro();
-talk.hello('Anusone');
-
-var answer = question.ask("what is the meaning of life?");
-console.log(answer);
-
-
-
-goodbye();
-
-
+app.listen(9000);
+console.log("Magic happens on port 9000")
