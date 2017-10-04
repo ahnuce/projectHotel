@@ -1,5 +1,10 @@
 var express = require('express');
 var app = express();
 
-app.listen(9000);
-console.log("Magic happens on port 9000")
+app.set('port', 9000);
+
+var server = app.listen(app.get('port'), function(){
+    var port = server.address().port;
+    console.log("Power level is at port " + port);  
+});
+console.log('Me first');
