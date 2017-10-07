@@ -65,3 +65,14 @@ app.get('/file', function(req, res){
 //use path.join tojoin in a number of different arguments to make a path
 //__dirname standard node variable to find the current directory ... to find our app.js
 //===> this will return our app.js file onto the browser instead of our json data
+    
+app.use(express.static(path.join(__dirname, 'public')));
+//another way to define a route to static files. this adds middleware ==>
+//when express receives a request for a route it will checkto see if any matches are made with the files in the folder it will deliver it to the browser without adding any routes. this will setup the public folder with the index.html and so this code here is not necessary
+app.get('/', function(req, res){
+    console.log("GET the homepage");
+    res
+        .status(404)
+        .sendFile(path.join(__dirname,'public', 'index.html'));
+    
+});
