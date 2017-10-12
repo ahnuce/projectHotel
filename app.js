@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var routes = require('./routes');
 
 app.set('port', 9000);
 
@@ -13,6 +14,8 @@ app.use(function(req, res, next){
 /* Updated way to get the homepage index.html file by using app.use and using static resources*/
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api', routes);
+
 /* Original way to GET homepage by doing a request and response with app.get and .sendFile */
 //app.get('/', function(req, res){
 //    console.log("GET the homepage");
@@ -22,21 +25,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 //    
 //});
 
-app.get('/json', function(req, res){
-    console.log("GET the JSON");
-    res
-        .status(200)
-        .json( {"jsonData" : true} );
-    
-});
-
-app.get('/file', function(req, res){
-    console.log("GET the FILE");
-    res
-        .status(200)
-        .sendFile(path.join(__dirname, 'app.js'));
-    
-});
+//app.get('/json', function(req, res){
+//    console.log("GET the JSON");
+//    res
+//        .status(200)
+//        .json( {"jsonData" : true} );
+//    
+//});
+//
+//app.get('/file', function(req, res){
+//    console.log("GET the FILE");
+//    res
+//        .status(200)
+//        .sendFile(path.join(__dirname, 'app.js'));
+//    
+//});
 
 var server = app.listen(app.get('port'), function(){
     var port = server.address().port;

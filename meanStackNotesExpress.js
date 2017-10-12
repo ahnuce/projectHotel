@@ -101,8 +101,46 @@ app.use(function(req, res, next){
     next();
 });
 
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+
 /* if you want the middleware to run from or after a certain location you can specify the location before the function so this example will start logging things after the css folder */
 app.use('/css', function(req, res, next){
     console.log(req.method, req.url);
     next();
 });
+    
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+
+/* The app.js is not that bad right now but when more is added that file will get to be very sizeable so we should seperate our concerns. We are going to start moving our routes to a seperate folder */
+
+/* We need to inialize it as an express app first and set up the router */
+var express = require('express');
+var router = express.router();
+
+/* Start adding routes to the router object by chaining it with the route  */
+/* You define your route then define your method then define your function you want to run ... you can chain different methods to different routes */
+router
+    .route('/json')
+    .get(function(req, res){
+        console.log("GET the JSON");
+        res
+            .status(200)
+            .json( {"jsonData" : true} );
+
+    })
+    .post(function(req, res){
+        console.log("POST the JSON route");
+        res
+            .status(200)
+            .json( {"jsonData" : "POST received"} );
+
+});
+
+
+module.exports = router;
+    
+/* To be able to use these routes you have to let app.js know by requiring it and using it */
+    var routes = require('./routes');
+    app.use('/api', routes);
+    
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
