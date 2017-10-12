@@ -74,14 +74,35 @@ app.get('/file', function(req, res){/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 //__dirname standard node variable to find the current directory ... to find our app.js
 //===> this will return our app.js file onto the browser instead of our json data
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
     
 app.use(express.static(path.join(__dirname, 'public')));
 //another way to define a route to static files. this adds middleware ==>
 //when express receives a request for a route it will checkto see if any matches are made with the files in the folder it will deliver it to the browser without adding any routes. this will setup the public folder with the index.html and so this code here is not necessary
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+
 app.get('/', function(req, res){
     console.log("GET the homepage");
     res
         .status(404)
         .sendFile(path.join(__dirname,'public', 'index.html'));
     
+});
+    
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+    
+    /* You define a function that will run or process something in the request then it will pass through the middleware and then it will still run and get a response ===> Also ORDER matters with MIDDLEWARE since they run sequentionally */
+    
+/* Since we are using middleware and need it to continue on to the next one we use the next parameter and run it as a function ===> this will just give us information on what is being requested */
+app.use(function(req, res, next){
+    console.log(req.method, req.url);
+    next();
+});
+
+/* if you want the middleware to run from or after a certain location you can specify the location before the function so this example will start logging things after the css folder */
+app.use('/css', function(req, res, next){
+    console.log(req.method, req.url);
+    next();
 });

@@ -4,8 +4,16 @@ var path = require('path');
 
 app.set('port', 9000);
 
+/* Since we are using middleware and need it to continue on to the next one we use the next parameter and run it as a function */
+app.use(function(req, res, next){
+    console.log(req.method, req.url);
+    next();
+});
+
+/* Updated way to get the homepage index.html file by using app.use and using static resources*/
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* Original way to GET homepage by doing a request and response with app.get and .sendFile */
 //app.get('/', function(req, res){
 //    console.log("GET the homepage");
 //    res
