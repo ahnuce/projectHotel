@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 var routes = require('./routes');
 
+/* Set the port up for the app to run */
 app.set('port', 9000);
 
 /* Since we are using middleware and need it to continue on to the next one we use the next parameter and run it as a function */
@@ -10,6 +11,7 @@ app.use(function(req, res, next){
     console.log(req.method, req.url);
     next();
 });
+
 
 /* Updated way to get the homepage index.html file by using app.use and using static resources*/
 app.use(express.static(path.join(__dirname, 'public')));
