@@ -17,7 +17,9 @@ Start adding routes to the router object by chaining it with the route  */
 router
     .route('/hotels')
     .get(ctrlHotels.hotelsGetAll);
- 
 
+router
+    .route('/hotels/:hotelId')
+    .get(ctrlHotels.hotelsGetOne);
 
 module.exports = router;
