@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var routes = require('./api/routes');
-
+var bodyParser = require('body-parser');
 
 /* Set the port up for the app to run */
 app.set('port', 9000);
@@ -22,6 +22,14 @@ Updated way to get the homepage index.html file by using app.use and using stati
 
 */
 app.use(express.static(path.join(__dirname, 'public')));
+
+/*
+want this middleware to run before any of the api routes and after any of the static files are run the method urlencoded because we are dealing with posting html forms couldve used raw or json
+==> must specify a particular option called extended and its a javascript object with either true or false to prevent a warning in console 
+false means we only need strings or arrays for data types and true adds more but we dont need that right now
+
+*/
+app.use(bodyParser.urlencoded({ extended : false }));
 
 app.use('/api', routes);
 
