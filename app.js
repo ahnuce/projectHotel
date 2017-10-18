@@ -1,9 +1,9 @@
+require('./api/data/dbconnection.js').open()
 var express = require('express');
 var app = express();
 var path = require('path');
 var routes = require('./api/routes');
 var bodyParser = require('body-parser');
-
 /* Set the port up for the app to run */
 app.set('port', 9000);
 
