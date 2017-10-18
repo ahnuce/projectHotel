@@ -1,5 +1,7 @@
 var hotelData = require('../data/hotel-data.json');
-
+/*
+Extracting data from query strings in the url
+*/
 module.exports.hotelsGetAll = function(req, res){
     console.log("GET the hotels");
     console.log(req.query);
@@ -43,10 +45,10 @@ module.exports.hotelsGetOne = function(req, res) {
     since the hotelData is an array you must specify the hotelId as an array object
     */
     var thisHotel = hotelData[hotelId];
-    console.log("GET hotelId", req.params.hotelId);
+    console.log("GET hotelId", hotelId);
     res
         .status(200)
-        .json(hotelData[req.params.hotelId]);
+        .json(hotelData[hotelId]);
 };
 
 module.exports.hotelsAddOne = function(req, res) {
