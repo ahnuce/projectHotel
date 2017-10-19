@@ -1,23 +1,23 @@
 var dbconn = require('../data/dbconnection.js');
+/*
+we need to require the objectid helper to be able to use the name and value pair in our find one method 
+*/
+var ObjectId = require('mongodb').ObjectId;
 var hotelData = require('../data/hotel-data.json');
+
+
 /*
 Extracting data from query strings in the url
 */
 module.exports.hotelsGetAll = function(req, res){
     
     var db = dbconn.get();
-    console.log("db", db);
-    console.log("GET the hotels");
-    console.log(req.query);
+    var collection = db.collection('hotels');
     
-    /*
-    these will return edited json data
-    */
-    var returnData;
     var offset = 0;
     var count = 5;
     
-    /*
+     /*
     first check to see if the query property existing on the request object and see if query has offset then it will run set the offset value in our controller + query string values come in as string so we must run that through parseInt to get a number and assign that to offset and now we must do the same for count
     */
     
@@ -28,32 +28,70 @@ module.exports.hotelsGetAll = function(req, res){
     if (req.query && req.query.count){
         count = parseInt(req.query.count, 10);
     }
+    collection
+        .find()
+        .skip(offset)
+        .limit(count)
+        .toArray(function(err,docs){
+         console.log("Found hotels", docs);
+        res
+            .status(200)
+            .json(docs);
+    })
+   
+    
+
+    /*
+    
+  these will return edited json data
+    
+    */
+//    var returnData;
+
+    
+   
     
     /*
     getting the hotel json data and slicing it by returning it with the offset value and the end with the count value
     */
-    
+  /*
     returnData = hotelData.slice(offset, offset+count);
     
     res
         .status(200)
         .json( returnData );
+ */
 };
 
 module.exports.hotelsGetOne = function(req, res) {
+    var db = dbconn.get();
+    var collection = db.collection('hotels');
+    var hotelId = req.params.hotelId;
+    console.log("GET the hotelId", hotelId);
+    collection
+        .findOne({ _id : ObjectId(hotelId) }, function(err,doc){
+            res
+                .status(200)
+                .json(doc);
+    });
+ 
+
+//    original method to grab hotel data by hotelId 
     /* 
     this will find the url parameter and use it inside a local variable to get our piece of data   
     */
-    var hotelId = req.params.hotelId;
+//    var hotelId = req.params.hotelId;
     /* 
     since the hotelData is an array you must specify the hotelId as an array object
     */
-    var thisHotel = hotelData[hotelId];
-    console.log("GET hotelId", hotelId);
-    res
-        .status(200)
-        .json(hotelData[hotelId]);
+//    var thisHotel = hotelData[hotelId];
+//    console.log("GET hotelId", hotelId);
+//    res
+//        .status(200)
+//        .json(hotelData[hotelId]);
+
 };
+
 
 module.exports.hotelsAddOne = function(req, res) {
   console.log("POST new hotel");

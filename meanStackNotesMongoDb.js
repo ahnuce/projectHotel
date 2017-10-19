@@ -27,3 +27,10 @@ module.exports = {
     open : open,
     get : get
 };
+
+
+/*
+
+take the app and connect it to the db when it starts then we want to use that connection when a controller needs it
+*/
+

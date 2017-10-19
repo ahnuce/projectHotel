@@ -1,6 +1,8 @@
 /*
 
-create a node module to start you will create a dbconnection.js file to create two methods a method to open the connection and one to retrieve it by setting it to a variable
+connecting a node app to a mongodb database and how to connect the db and create your connection string and use a reusable connection
+create a node module to start you will create a dbconnection.js file to create two methods a method to open the connection and one to retrieve it by setting it to a variable 
+this first part of requiring('mongodb') is the driver for mongo and that dburl will be different depending on the port and location and folder name
 
 */
 var MongoClient = require('mongodb').MongoClient;
