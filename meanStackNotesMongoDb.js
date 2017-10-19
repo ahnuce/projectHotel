@@ -31,6 +31,12 @@ module.exports = {
 
 /*
 
+this dbconnection now gives you info when connecting to the db when the app starts so now we want to use it with a controller
 take the app and connect it to the db when it starts then we want to use that connection when a controller needs it
 */
+
+/*
+we need to require the objectid helper to be able to use the name and value pair in our find one method 
+*/
+var ObjectId = require('mongodb').ObjectId;
 
